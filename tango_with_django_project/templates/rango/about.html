@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} <!-- New line -->
+
+<html>
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <h1>Rango says...</h1>
+        <h2>here is the about page.</h2>
+        <div>
+            This is the about page for the Rango app. <br />
+        </div>
+        <div>
+            <a href="/rango/index/">Home</a><br />
+            <img src="{{ MEDIA_URL }}images/cat.jpg" 
+                alt="Picture of Cat"/>
+        </div>
+        
+    </body>
+</html>
