@@ -22,7 +22,10 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ['pub_date']
     search_fields = ['question_text']
 
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'url')
+
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Page)
+admin.site.register(Page, PageAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
