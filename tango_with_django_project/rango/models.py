@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 from django.core.validators import MaxLengthValidator
+from django.utils.crypto import get_random_string
 
 # Create your models here.
 class Category(models.Model):
@@ -13,7 +14,11 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if not self.slug:  # If no slug has been provided
+            self.slug = slugify(self.name)
+            # Ensure the slug is unique
+            while Category.objects.filter(slug=self.slug).exists():
+                self.slug = slugify(self.name) + '-' + get_random_string(length=4)
         super(Category, self).save(*args, **kwargs)
 
     class Meta:

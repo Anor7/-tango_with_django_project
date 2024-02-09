@@ -1,5 +1,6 @@
 from django import forms
 from rango.models import Page, Category
+from django.core.exceptions import ValidationError
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
@@ -14,7 +15,11 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'maxlength': Category.NAME_MAX_LENGTH}),
         }
-        
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Category.objects.filter(name__iexact=name).exists():
+            raise ValidationError("Category with this name already exists.")
+        return name 
 
 class PageForm(forms.ModelForm):
 
