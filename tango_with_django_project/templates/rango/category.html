@@ -14,7 +14,6 @@
 
     {% if category %} 
     <h1>{{ category.name }}</h1>
-    <a href="{% url 'rango:add_page' category.slug %}">Add Page</a><br />
 
     {% if pages %}
         <ul>
@@ -24,6 +23,10 @@
         </ul>
     {% else %}
         <strong>No pages currently in category.</strong>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'rango:add_page' category.slug %}">Add a page to this category</a>
     {% endif %}
 
     {% else %}
