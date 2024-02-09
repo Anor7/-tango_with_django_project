@@ -8,7 +8,12 @@
 {% block body_block %}
     <p><a href="{% url 'rango:index' %}">Back to Home</a></p>
 
-    <h1>Rango says...</h1>
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}!
+    {% else %}
+        hey there partner!
+    {% endif %}
+
     <div>
         hey there partner! <br />
         <strong>{{ boldmessage }}</strong><br />
